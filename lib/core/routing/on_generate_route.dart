@@ -1,4 +1,4 @@
-import 'package:doc_doc/core/routing/routes_app.dart';
+import 'package:doc_doc/core/routing/routes.dart';
 import 'package:doc_doc/features/auth/presentation/login_screen.dart';
 import 'package:doc_doc/features/onboarding/presentation/on_boarding_Screen.dart';
 import 'package:doc_doc/features/onboarding/presentation/splash_screen.dart';
