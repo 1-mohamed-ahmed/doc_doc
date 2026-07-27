@@ -1,7 +1,8 @@
 import 'package:doc_doc/core/routing/routes.dart';
-import 'package:doc_doc/features/auth/presentation/login_screen.dart';
-import 'package:doc_doc/features/onboarding/presentation/on_boarding_Screen.dart';
-import 'package:doc_doc/features/onboarding/presentation/splash_screen.dart';
+import 'package:doc_doc/features/auth/presentation/screens/login_screen.dart';
+import 'package:doc_doc/features/auth/presentation/screens/signup_screen.dart';
+import 'package:doc_doc/features/onboarding/presentation/screens/on_boarding_Screen.dart';
+import 'package:doc_doc/features/onboarding/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 class OnGenerateRoute {
@@ -13,8 +14,8 @@ class OnGenerateRoute {
         return MaterialPageRoute(builder: (_) => const OnboardingScreen());
       case Routes.login:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
-      // case Routes.signup:
-      //   return MaterialPageRoute(builder: (_) => const SignupScreen());
+      case Routes.signup:
+        return MaterialPageRoute(builder: (_) => const SignupScreen());
       // case Routes.home:
       //   return MaterialPageRoute(builder: (_) => const HomeScreen());
       default:

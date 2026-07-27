@@ -9,6 +9,7 @@ class OnboardingImageAndText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      alignment: Alignment.center,
       children: [
         SvgPicture.asset(AppImages.splashLogo),
         Container(
@@ -16,7 +17,7 @@ class OnboardingImageAndText extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
-              colors: [Colors.white, Colors.white.withOpacity(0.0)],
+              colors: [Colors.white, Colors.white.withValues(alpha: 0.0)],
               stops: const [0.0, 0.6],
             ),
           ),

@@ -4,7 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginHeader extends StatelessWidget {
-  const LoginHeader({super.key});
+  final String headerText;
+  final String description;
+  const LoginHeader({
+    super.key,
+    required this.headerText,
+    required this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,18 +19,15 @@ class LoginHeader extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            'Welcome Back',
+            headerText,
             textAlign: TextAlign.left,
-            style: TextStyles.fontSize24W700.copyWith(
-              color: AppColor.buttonColor,
+            style: TextStyles.fontSize24blackW700.copyWith(
+              color: AppColor.secondary,
             ),
           ),
         ),
         SizedBox(height: 10.h),
-        Text(
-          'We\'re excited to have you back, can\'t wait to see what you\'ve been up to since you last logged in.',
-          style: TextStyles.fontSize12W400,
-        ),
+        Text(description, style: TextStyles.fontSize12grayW400),
       ],
     );
   }
