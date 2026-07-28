@@ -1,8 +1,8 @@
 abstract class ApiConsumer {
   Future<dynamic> get(
-    String path, {
-    Object? data,
-    Map<String, dynamic> queryParameters,
+    String path, { // EndPoint
+    Object? data, // body of Requset
+    Map<String, dynamic>? queryParameters,
     bool isFormData = false,
   });
   Future<dynamic> post(

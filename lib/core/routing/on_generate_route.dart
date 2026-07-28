@@ -1,3 +1,4 @@
+import 'package:doc_doc/core/di/server_locator.dart';
 import 'package:doc_doc/core/routing/routes.dart';
 import 'package:doc_doc/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:doc_doc/features/auth/presentation/screens/login_screen.dart';
@@ -22,7 +23,7 @@ class OnGenerateRoute {
       case Routes.homeScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => AuthCubit(),
+            create: (context) => getIt<AuthCubit>(),
             child: const HomeScreen(),
           ),
         );

@@ -10,6 +10,6 @@ class AuthStateSuccess extends AuthState {
 }
 
 class AuthStateFailure extends AuthState {
-  final String message;
+  final dynamic message;
   AuthStateFailure(this.message);
 }

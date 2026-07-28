@@ -1,28 +1,20 @@
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
+import 'package:doc_doc/core/errors/exception.dart';
+import 'package:doc_doc/features/auth/domain/login_repo.dart';
 import 'package:doc_doc/features/auth/presentation/cubit/auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(InitialAuthState());
+  LoginRepo loginRepo;
+  AuthCubit({required this.loginRepo}) : super(InitialAuthState());
 
-  signin(String emailSignIn, String passwordSignIn) async {
-    emit(AuthStateLoading());
+  Future<void> login(String email, String password) async {
     try {
-      final response = await Dio().post(
-        "https://vcare.integration25.com/api/auth/login",
-        data: {"email": emailSignIn, "password": passwordSignIn},
-      );
+      emit(AuthStateLoading());
+      final response = await loginRepo.login(email, password);
       emit(AuthStateSuccess(response));
-      print("================================");
-      print(response);
-      print("================================");
-      return response;
+    } on ServerException catch (e) {
+      emit(AuthStateFailure(e.errorModel.message));
     } catch (e) {
-      print("================================");
-
-      print(e.toString());
-      print("================================");
-
       emit(AuthStateFailure(e.toString()));
     }
   }

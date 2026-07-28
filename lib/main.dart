@@ -1,7 +1,9 @@
 import 'package:doc_doc/clint_app.dart';
-import 'package:doc_doc/core/routing/on_generate_route.dart';
+import 'package:doc_doc/core/di/server_locator.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(DocApp(onGenerateRoute: OnGenerateRoute()));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await setupServiceLocator();
+  runApp(DocApp());
 }

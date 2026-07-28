@@ -57,6 +57,7 @@ dependencies:
   flutter_native_splash: ^2.4.8
   flutter_svg: ^2.3.0
   flutter_screenutil: ^5.9.3
+  bloc: ^9.2.1
   #  Social Icon
 
 dev_dependencies:
