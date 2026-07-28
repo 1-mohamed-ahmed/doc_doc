@@ -116,7 +116,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 30.h),
 
-                AppButton(textButton: "Login", onPressed: () {}),
+                AppButton(
+                  textButton: "Login",
+                  onPressed: () {
+                    context.pushNamed(Routes.homeScreen);
+                  },
+                ),
                 SizedBox(height: 20.h),
 
                 OrDivider(),

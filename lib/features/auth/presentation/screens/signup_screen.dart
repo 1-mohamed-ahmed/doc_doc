@@ -1,6 +1,5 @@
 import 'package:doc_doc/core/helpers/extention.dart';
 import 'package:doc_doc/core/routing/routes.dart';
-import 'package:doc_doc/core/theming/app_color.dart';
 import 'package:doc_doc/core/theming/app_text_style.dart';
 import 'package:doc_doc/core/widgets/app_button.dart';
 import 'package:doc_doc/core/widgets/app_form_text_field.dart';
@@ -93,37 +92,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 //TextFormField ends here
                 SizedBox(height: 20.h),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Checkbox(
-                          activeColor: AppColor.buttonColor,
-                          value: checkVal,
-                          onChanged: (val) {
-                            setState(() {
-                              checkVal = val!;
-                            });
-                          },
-                        ),
-                        Text(
-                          "Remember me",
-                          style: TextStyles.fontSize12grayW400,
-                        ),
-                      ],
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: Text(
-                        "Forget Password ?",
-                        style: TextStyles.fontSize12blueW400,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 30.h),
 
                 AppButton(textButton: "Login", onPressed: () {}),
                 SizedBox(height: 20.h),
