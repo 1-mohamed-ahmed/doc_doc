@@ -6,7 +6,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class AppButton extends StatelessWidget {
   final void Function()? onPressed;
   final String textButton;
-  const AppButton({super.key, required this.textButton, this.onPressed});
+  final bool isLoading;
+  const AppButton({
+    super.key,
+    required this.textButton,
+    this.onPressed,
+    required this.isLoading,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +27,15 @@ class AppButton extends StatelessWidget {
         ),
         padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 15.h),
       ),
-      child: Text(
-        textButton,
-        style: TextStyles.fontSize12grayW400.copyWith(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+      child: isLoading
+          ? CircularProgressIndicator(color: Colors.white)
+          : Text(
+              textButton,
+              style: TextStyles.font15grayW400.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
     );
   }
 }

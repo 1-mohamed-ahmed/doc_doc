@@ -1,7 +1,0 @@
-flutter_native_splash:
-  color: "#ffffff" ##====================================[REQUIRED]==========
-
-  image: assets/images/Capture.png
-  fullscreen: true # default false
-
-  android_12:

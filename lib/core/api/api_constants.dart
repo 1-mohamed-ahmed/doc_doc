@@ -1,7 +1,7 @@
 class ApiConstants {
   // here are all endPoints and base url
   static const String baseUrl = "https://vcare.integration25.com/api/";
-  // Authantication
+  // Authantication endPoint
   static const String login = "auth/login";
   static const String register = "auth/register";
   static const String logout = "auth/logout";

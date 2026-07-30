@@ -14,7 +14,7 @@ class OnboardingLogoAndText extends StatelessWidget {
       children: [
         SvgPicture.asset(AppImages.frame),
         SizedBox(width: 10.w),
-        Text('DocDoc', style: TextStyles.fontSize24blackW700),
+        Text('DocDoc', style: TextStyles.font24blackW700),
       ],
     );
   }

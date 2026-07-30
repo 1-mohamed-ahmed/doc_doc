@@ -30,7 +30,7 @@ class OnboardingImageAndText extends StatelessWidget {
           child: Text(
             'Best Doctor\nAppointment App',
             textAlign: TextAlign.center,
-            style: TextStyles.fontSize32Wbold,
+            style: TextStyles.font32blueBold,
           ),
         ),
       ],

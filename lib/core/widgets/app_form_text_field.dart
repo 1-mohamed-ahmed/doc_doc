@@ -10,8 +10,9 @@ class AppFormTextField extends StatelessWidget {
   final String hintText;
   final Icon? prefixIcon;
   final IconButton? suffixIcon;
-  final String Function(String?)? validator;
+  final String? errorText;
 
+  final String? Function(String?)? validator;
   const AppFormTextField({
     super.key,
     this.obscureText,
@@ -22,6 +23,7 @@ class AppFormTextField extends StatelessWidget {
     this.validator,
     this.focusedBorder,
     this.focusedErrorBorder,
+    this.errorText,
   });
 
   @override
@@ -29,7 +31,7 @@ class AppFormTextField extends StatelessWidget {
     return TextFormField(
       controller: myContrller,
       validator: validator,
-
+      cursorColor: Colors.black,
       obscureText: obscureText ?? false,
       decoration: InputDecoration(
         // isDense: true,
@@ -39,6 +41,7 @@ class AppFormTextField extends StatelessWidget {
         filled: true,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
+        errorText: errorText,
         prefixIconColor: Colors.grey,
         suffixIconColor: Colors.grey,
         border: OutlineInputBorder(

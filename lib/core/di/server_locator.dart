@@ -1,39 +1,39 @@
 import 'package:dio/dio.dart';
 import 'package:doc_doc/core/cache/cache_helper.dart';
-import 'package:doc_doc/core/api/api_constants.dart';
-import 'package:doc_doc/core/networking/api_consuemr.dart';
-import 'package:doc_doc/core/networking/api_interceptors.dart';
-import 'package:doc_doc/core/networking/dio_consumer.dart';
-import 'package:doc_doc/features/auth/login_locator.dart';
+import 'package:doc_doc/core/networking/api_service.dart';
+import 'package:doc_doc/core/networking/dio_factory.dart';
+import 'package:doc_doc/features/auth/login/domain/login_repo.dart';
+import 'package:doc_doc/features/auth/login/data/repo/login_repo_impl.dart';
+import 'package:doc_doc/features/auth/login/presentation/cubit/login_cubit.dart';
+import 'package:doc_doc/features/auth/signup/domain/signup_repo.dart';
+import 'package:doc_doc/features/auth/signup/data/repository/signuo_repo_impl.dart';
+import 'package:doc_doc/features/auth/signup/presentation/cubit/signup_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final getIt = GetIt.instance;
 
 Future<void> setupServiceLocator() async {
-  getIt.registerLazySingleton<Dio>(() {
-    final dio = Dio(
-      BaseOptions(
-        baseUrl: ApiConstants.baseUrl,
-        connectTimeout: const Duration(seconds: 20),
-        receiveTimeout: const Duration(seconds: 20),
-      ),
-    );
-
-    dio.interceptors.add(ApiInterceptors());
-    dio.interceptors.add(
-      LogInterceptor(requestBody: true, responseBody: true, error: true),
-    );
-    return dio;
-  });
-  getIt.registerLazySingleton<ApiConsumer>(() => DioConsumer(getIt<Dio>()));
-  // setup SharedPrefrences
+  // cach
   final prefs = await SharedPreferences.getInstance();
   getIt.registerLazySingleton<SharedPreferences>(() => prefs);
   getIt.registerLazySingleton<CacheHelper>(
     () => CacheHelper(sharedPreferences: getIt<SharedPreferences>()),
   );
+  // Dio & ApiService
+  Dio dio = await DioFactory.getDio();
 
-  // All di Locators
-  initAuthLocator();
+  getIt.registerLazySingleton<ApiService>(() => ApiService(dio));
+
+  // feature / Login
+  getIt.registerLazySingleton<LoginRepo>(
+    () => LoginRepoImpl(apiService: getIt<ApiService>()),
+  );
+  getIt.registerFactory<LoginCubit>(() => LoginCubit(getIt<LoginRepo>()));
+
+  // feature / signUp
+  getIt.registerLazySingleton<SignupRepo>(
+    () => SignupRepoImpl(apiService: getIt<ApiService>()),
+  );
+  getIt.registerFactory<SignupCubit>(() => SignupCubit(getIt<SignupRepo>()));
 }
