@@ -51,7 +51,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  flutter_launcher_icons: ^0.14.4
   freezed: ^3.2.5
   retrofit_generator: ^10.2.8
   json_serializable: ^6.14.0
@@ -107,13 +107,18 @@ flutter:
   # see https://flutter.dev/to/font-from-package
 flutter_native_splash:
   color: "#FFFFFF" # خلفية بيضاء
-  image: assets/images/logo.png
+  image: "assets/images/splash_logo.png"
 
   # التوافق الكامل مع Android 12 والأحدث
   android_12:
-    image: assets/images/logo.png
+    image: "assets/images/splash_logo.png"
     color: "#FFFFFF"
 
   # لو حابب يدعم الـ Dark Mode (اختياري)
   # color_dark: "#121212"
   # image_dark: assets/images/splash_logo.png
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/app_icon.png" # مسار الصورة الخاصة بك
+  min_sdk_android: 21

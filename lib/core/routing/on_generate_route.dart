@@ -4,7 +4,7 @@ import 'package:doc_doc/features/auth/login/presentation/cubit/login_cubit.dart'
 import 'package:doc_doc/features/auth/login/presentation/screens/login_screen.dart';
 import 'package:doc_doc/features/auth/signup/presentation/cubit/signup_cubit.dart';
 import 'package:doc_doc/features/auth/signup/presentation/screens/sign_up_screen.dart';
-import 'package:doc_doc/features/home/ui/home_screen.dart';
+import 'package:doc_doc/features/home/presentation/home_screen.dart';
 import 'package:doc_doc/features/onboarding/presentation/screens/on_boarding_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

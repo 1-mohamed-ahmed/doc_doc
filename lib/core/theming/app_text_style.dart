@@ -34,4 +34,9 @@ class TextStyles {
     fontWeight: FontWeight.w700,
     color: Colors.blue,
   );
+  static TextStyle font18blackW700 = TextStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeight.w700,
+    color: Colors.black,
+  );
 }
