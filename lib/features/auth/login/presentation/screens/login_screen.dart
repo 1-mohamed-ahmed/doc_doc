@@ -82,7 +82,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     return AppButton(
                       textButton: "Login",
                       onPressed: () async {
-                        context.read<LoginCubit>().emitLoginStates();
+                        if (context
+                            .read<LoginCubit>()
+                            .formKey
+                            .currentState!
+                            .validate()) {
+                          context.read<LoginCubit>().emitLoginStates();
+                        }
                       },
                       isLoading: state is LoginLoading,
                     );
