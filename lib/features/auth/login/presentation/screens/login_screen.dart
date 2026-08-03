@@ -2,12 +2,13 @@ import 'package:doc_doc/core/helpers/extention.dart';
 import 'package:doc_doc/core/routing/routes.dart';
 import 'package:doc_doc/core/theming/app_text_style.dart';
 import 'package:doc_doc/core/widgets/app_button.dart';
-import 'package:doc_doc/features/auth/login/presentation/cubit/login_cubit.dart';
-import 'package:doc_doc/features/auth/login/presentation/cubit/login_state.dart';
+import 'package:doc_doc/features/auth/login/logic/cubit/login_cubit.dart';
+import 'package:doc_doc/features/auth/login/logic/cubit/login_state.dart';
 import 'package:doc_doc/features/auth/login/presentation/widget/form_email_and_password.dart';
 import 'package:doc_doc/features/auth/widget/auth_footer_text.dart';
 import 'package:doc_doc/features/auth/widget/auth_header.dart';
 import 'package:doc_doc/features/auth/login/presentation/widget/or_divider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,7 +51,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        context.pushNamed(Routes.forgetPassword);
+                      },
                       child: Text(
                         "Forget Password ?",
                         style: TextStyles.font15blueW400,
@@ -62,19 +65,50 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 BlocConsumer<LoginCubit, LgoinState>(
                   listener: (context, state) {
+                    if (state is LoginLoading) {
+                      showCupertinoDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (context) {
+                          return Align(
+                            alignment: Alignment.center,
+                            child: SizedBox(
+                              width: 250.w,
+                              height: 200.h,
+                              child: CupertinoAlertDialog(
+                                content: Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 10),
+                                  child: CupertinoActivityIndicator(
+                                    radius: 16,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }
                     if (state is LoginSuccess) {
+                      // To close the loading dialog when login succeeds
+                      Navigator.of(context, rootNavigator: true).pop();
                       showTopSnackBar(
                         Overlay.of(context),
                         CustomSnackBar.success(
-                          message: "${state.data.message}",
+                          message: "${state.apiData.message}",
                         ),
                       );
                       context.pushNamedAndRemoveUntil(Routes.homeScreen);
                     }
                     if (state is LoginFailuer) {
+                      // To close the loading dialog when login fails
+                      Navigator.of(context, rootNavigator: true).pop();
                       showTopSnackBar(
                         Overlay.of(context),
-                        CustomSnackBar.error(message: state.error),
+                        CustomSnackBar.error(
+                          message:
+                              "${state.apiError == null ? state.firebaseError : state.apiError ?? "undefiend Error"}",
+                        ),
                       );
                     }
                   },
@@ -82,15 +116,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     return AppButton(
                       textButton: "Login",
                       onPressed: () async {
-                        if (context
-                            .read<LoginCubit>()
-                            .formKey
-                            .currentState!
-                            .validate()) {
-                          context.read<LoginCubit>().emitLoginStates();
-                        }
+                        context.read<LoginCubit>().emitLoginStates();
                       },
-                      isLoading: state is LoginLoading,
+                      isLoading: false,
                     );
                   },
                 ),

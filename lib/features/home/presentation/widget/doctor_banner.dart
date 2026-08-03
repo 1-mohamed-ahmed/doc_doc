@@ -1,6 +1,6 @@
 import 'package:doc_doc/core/theming/app_images.dart';
-import 'package:doc_doc/core/theming/app_text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class DoctorBanner extends StatelessWidget {
@@ -9,87 +9,102 @@ class DoctorBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        const cardHeight = 167.0;
-
-        return SizedBox(
-          height: cardHeight + 40,
-          width: constraints.maxWidth,
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              // --- 1. البطاقة الزرقاء الخلفية ---
-              Positioned(
-                bottom: 0, // بنخليها تثبت في أسفل الـ Stack
-                left: 0,
-                right: 0,
-                height: cardHeight,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24),
-                    // لإضافة تأثير الخطوط المائلة في الخلفية (اختياري)
+    return SizedBox(
+      width: double.infinity,
+      height: 230.h,
+      child: Stack(
+        children: [
+          Positioned(
+            bottom: 0,
+            height: 190.h,
+            width: 340.w,
+            child: ClipRRect(
+              borderRadius: BorderRadius.horizontal(
+                left: Radius.circular(40),
+                right: Radius.circular(40),
+              ),
+              child: Stack(
+                children: [
+                  SizedBox(
+                    height: 250.h,
+                    child: SvgPicture.asset(
+                      AppImages.banner,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  child: SvgPicture.asset(AppImages.banner, fit: BoxFit.cover),
-                ),
-              ),
-
-              // --- 2. المحتوى النصي والزرار (Column) ---
-              Positioned(
-                top: 60, // نضبط المسافة من فوق
-                left: 20, // نضبط المسافة من الشمال
-                width:
-                    constraints.maxWidth *
-                    0.55, // نحدد عرض العمود عشان النص ما يدخلش في الصورة
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Book and\nschedule with\nnearest doctor',
-                      style: TextStyles.font24blackW700.copyWith(
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    // الزرار الأبيض
-                    ElevatedButton(
-                      onPressed: onPressed,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: const Color(
-                          0xFF247CFF,
-                        ), // لون النص جوه الزرار
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 24,
-                          vertical: 17,
+                  Positioned(
+                    top: 30.h,
+                    left: 20.w,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Book and\nschedule with\nnearest doctor',
+                          style: TextStyle(
+                            fontSize: 20.sp,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                      ),
-                      child: Text(
-                        'Find Nearby',
-                        style: TextStyles.font13blueW700,
-                      ),
+                        SizedBox(height: 16.h),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  doctorBannerButton(
+                    buttonTitle: 'Find Nearby',
+                    onPressed: onPressed,
+                  ),
+                ],
               ),
-
-              // --- 3. صورة الطبيبة (بروز للخارج) ---
-              Positioned(
-                right: 5, // نثبتها على اليمين
-                bottom: 0, // نثبتها من الأسفل عشان تبدأ من نفس خط البطاقة
-                height:
-                    cardHeight +
-                    35, // 💡 الطول الكلي للصورة أكبر من طول البطاقة عشان تبرز فوق
-                child: SvgPicture.asset(AppImages.nurse, fit: BoxFit.contain),
-              ),
-            ],
+            ),
           ),
-        );
-      },
+
+          doctorBannerImage(AppImages.nurse),
+        ],
+      ),
+    );
+  }
+
+  Widget doctorBannerImage(String pathImage) {
+    return Positioned(
+      bottom: 0,
+      right: 0,
+      height: 250.h,
+      child: SizedBox(
+        width: 200.w,
+        height: 200.h,
+        child: Image.asset(pathImage, fit: BoxFit.cover),
+      ),
+    );
+  }
+
+  Widget doctorBannerButton({
+    required String buttonTitle,
+    void Function()? onPressed,
+  }) {
+    return Positioned(
+      bottom: 15,
+      left: 20,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          foregroundColor: const Color(0xFF247CFF),
+          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 17.h),
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+        ),
+        child: Text(
+          buttonTitle,
+          style: TextStyle(
+            fontSize: 13.sp,
+            color: const Color(0xFF247CFF),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
     );
   }
 }

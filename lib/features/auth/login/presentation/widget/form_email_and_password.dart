@@ -1,5 +1,5 @@
 import 'package:doc_doc/core/widgets/app_form_text_field.dart';
-import 'package:doc_doc/features/auth/login/presentation/cubit/login_cubit.dart';
+import 'package:doc_doc/features/auth/login/logic/cubit/login_cubit.dart';
 import 'package:doc_doc/core/validation/email_validation.dart';
 import 'package:doc_doc/core/validation/password_validation.dart';
 import 'package:flutter/material.dart';

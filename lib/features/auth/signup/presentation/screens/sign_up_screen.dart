@@ -2,8 +2,8 @@ import 'package:doc_doc/core/helpers/extention.dart';
 import 'package:doc_doc/core/routing/routes.dart';
 import 'package:doc_doc/core/theming/app_text_style.dart';
 import 'package:doc_doc/core/widgets/app_button.dart';
-import 'package:doc_doc/features/auth/signup/presentation/cubit/signup_cubit.dart';
-import 'package:doc_doc/features/auth/signup/presentation/cubit/signup_state.dart';
+import 'package:doc_doc/features/auth/signup/logic/cubit/signup_cubit.dart';
+import 'package:doc_doc/features/auth/signup/logic/cubit/signup_state.dart';
 import 'package:doc_doc/features/auth/signup/presentation/widget/form_input_signup.dart';
 import 'package:doc_doc/features/auth/widget/auth_footer_text.dart';
 import 'package:doc_doc/features/auth/widget/auth_header.dart';
@@ -59,7 +59,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     if (state is SignupFailure) {
                       showTopSnackBar(
                         Overlay.of(context),
-                        CustomSnackBar.error(message: state.errorMessage),
+                        CustomSnackBar.error(
+                          message:
+                              "${state.apiErrorMessage == null ? state.firebaseErrorMessage : state.apiErrorMessage ?? "undefiend Error"}",
+                        ),
                       );
                     }
                   },
@@ -67,13 +70,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     return AppButton(
                       textButton: "Create Account",
                       onPressed: () {
-                        if (context
-                            .read<SignupCubit>()
-                            .formKey
-                            .currentState!
-                            .validate()) {
-                          context.read<SignupCubit>().emitSignupStates();
-                        }
+                        context.read<SignupCubit>().emitSignupStates();
                       },
                       isLoading: state is SignupLoading,
                     );

@@ -1,5 +1,6 @@
 import 'package:doc_doc/core/theming/app_color.dart';
 import 'package:doc_doc/core/theming/app_text_style.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -16,17 +17,16 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return CupertinoButton(
       onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        minimumSize: Size(300.w, 50.h),
+      minimumSize: Size(300.w, 50.h),
+      color: AppColor.buttonColor,
+      foregroundColor: Colors.white,
+      borderRadius: BorderRadius.circular(15.r),
+      pressedOpacity: 0.8,
 
-        backgroundColor: AppColor.buttonColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.r),
-        ),
-        padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 15.h),
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 50.w, vertical: 20.h),
+
       child: isLoading
           ? CircularProgressIndicator(color: Colors.white)
           : Text(
