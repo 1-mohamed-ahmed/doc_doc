@@ -5,6 +5,10 @@ class ApiConstants {
   static const String login = "auth/login";
   static const String register = "auth/register";
   static const String logout = "auth/logout";
+
+  // Home endPoint
+  static const String getAllDoctors = "home/index";
+
   // user endPoint
   static const String getProfile = "user/profile";
   static const String updateProfile = "user/update";

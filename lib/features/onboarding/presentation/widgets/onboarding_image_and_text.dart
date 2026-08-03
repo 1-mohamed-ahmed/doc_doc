@@ -11,7 +11,7 @@ class OnboardingImageAndText extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        SvgPicture.asset(AppImages.splashLogo),
+        SvgPicture.asset(AppImages.onBoardingLogo),
         Container(
           foregroundDecoration: BoxDecoration(
             gradient: LinearGradient(

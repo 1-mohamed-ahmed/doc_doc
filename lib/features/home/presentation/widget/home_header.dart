@@ -28,14 +28,17 @@ class HomeHeader extends StatelessWidget {
                 child: Text(
                   title,
                   textAlign: TextAlign.left,
-                  style: TextStyles.font24blackW700,
+                  style: TextStyles.font24blackW700.copyWith(fontSize: 20.sp),
                 ),
               ),
               SizedBox(height: 2.h),
-              Text(
-                subTitle,
-                textAlign: TextAlign.left,
-                style: TextStyles.font15grayW400,
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  subTitle,
+                  textAlign: TextAlign.left,
+                  style: TextStyles.font15grayW400,
+                ),
               ),
             ],
           ),
@@ -45,7 +48,7 @@ class HomeHeader extends StatelessWidget {
           color: Colors.black,
           style: ElevatedButton.styleFrom(backgroundColor: Colors.grey[200]),
           onPressed: onPressed,
-          icon: Icon(Icons.notifications, size: 32),
+          icon: Icon(Icons.notifications_none, size: 25.w),
         ),
       ],
     );

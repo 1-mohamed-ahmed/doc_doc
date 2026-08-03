@@ -24,3 +24,7 @@ extension NavigationPages on BuildContext {
 
   void pop() => Navigator.of(this).pop();
 }
+
+extension CheckExtention on String {
+  bool isNullOrEmpty() => this == null || this == "";
+}

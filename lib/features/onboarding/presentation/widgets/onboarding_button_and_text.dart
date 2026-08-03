@@ -1,3 +1,6 @@
+import 'package:doc_doc/core/api/api_keys.dart';
+import 'package:doc_doc/core/cache/cache_helper.dart';
+import 'package:doc_doc/core/di/server_locator.dart';
 import 'package:doc_doc/core/helpers/extention.dart';
 import 'package:doc_doc/core/routing/routes.dart';
 import 'package:doc_doc/core/theming/app_text_style.dart';
@@ -20,7 +23,12 @@ class OnboardingButtonAndText extends StatelessWidget {
         SizedBox(height: 30.h),
         AppButton(
           textButton: 'Get Started',
-          onPressed: () {
+          onPressed: () async {
+            await getIt<CacheHelper>().setData(
+              key: ApiKeys.isOnboardingVisited,
+              value: true,
+            );
+            // ignore: use_build_context_synchronously
             context.pushReplacementNamed(Routes.login);
           },
           isLoading: false,

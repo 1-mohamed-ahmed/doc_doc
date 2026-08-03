@@ -3,7 +3,7 @@ import 'package:doc_doc/core/validation/phone_validation.dart';
 import 'package:doc_doc/core/widgets/app_form_text_field.dart';
 import 'package:doc_doc/core/validation/email_validation.dart';
 import 'package:doc_doc/core/validation/password_validation.dart';
-import 'package:doc_doc/features/auth/signup/presentation/cubit/signup_cubit.dart';
+import 'package:doc_doc/features/auth/signup/logic/cubit/signup_cubit.dart';
 import 'package:doc_doc/features/auth/signup/presentation/widget/drop_down_gender.dart';
 import 'package:doc_doc/features/auth/signup/presentation/widget/intel_phone_field.dart';
 import 'package:doc_doc/features/auth/signup/presentation/widget/password_validation.dart';
