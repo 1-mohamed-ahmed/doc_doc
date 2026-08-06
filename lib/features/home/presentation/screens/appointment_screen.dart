@@ -20,7 +20,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
       appBar: AppBar(
         title: Text("Appointment"),
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 67, 141, 220),
+        backgroundColor: const Color(0xFF438DDC),
       ),
       body: Center(child: Text("Not found",style: TextStyle(fontSize: 22.sp),),),
 
