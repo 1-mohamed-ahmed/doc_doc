@@ -1,10 +1,10 @@
 import 'package:doc_doc/core/theming/app_images.dart';
-import 'package:doc_doc/features/home/data/model/home_response_body.dart';
+import 'package:doc_doc/features/home/data/model/home_doctors_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ListViewDoctorsCard extends StatelessWidget {
-  final List<DoctorsList> doctors;
+  final HomeDoctorsModel? doctors;
   const ListViewDoctorsCard({super.key, required this.doctors});
 
   @override
@@ -12,9 +12,10 @@ class ListViewDoctorsCard extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: 6,
+      
+      itemCount: 5,
       itemBuilder: (context, index) {
-        final doctor = doctors[index];
+        final doctor = doctors!.specializationInformation![index].doctors!.first;
         return SizedBox(
           height: 200.h,
           width: 3000.w,
@@ -34,7 +35,7 @@ class ListViewDoctorsCard extends StatelessWidget {
                 ),
                 doctorDiscription(
                   doctor.name!,
-                  doctor.specialization!["name"],
+                  "${doctor.specialization!["name"]}",
                   doctor.email!,
                 ),
               ],
@@ -54,15 +55,22 @@ class ListViewDoctorsCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 20.h),
-            Text(
-              "Dr.$doctorName",
-              style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF242424),
-                height: 1.5,
+            // SizedBox(height: 20.h),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical:  8.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Dr.$doctorName",
+                  style: TextStyle(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF242424),
+                    height: 1.5,
+                  ),
+                ),
               ),
             ),
             Align(

@@ -18,3 +18,5 @@ class LoginFailuer extends LgoinState {
   final String? firebaseError;
   LoginFailuer({this.apiError, this.firebaseError});
 }
+
+class LoginEmailVerify extends LgoinState {}

@@ -26,5 +26,6 @@ extension NavigationPages on BuildContext {
 }
 
 extension CheckExtention on String {
+  // ignore: unnecessary_null_comparison
   bool isNullOrEmpty() => this == null || this == "";
 }

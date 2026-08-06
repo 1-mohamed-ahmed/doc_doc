@@ -7,7 +7,11 @@ class ApiConstants {
   static const String logout = "auth/logout";
 
   // Home endPoint
-  static const String getAllDoctors = "home/index";
+  static const String getHomeDoctors = "home/index"; // the doctors in home page
+  static const String getAllDoctors = "doctor/index"; // all doctors in api
+  static const String getAllSpecialization =
+      "specialization/index"; // all specialization
+  static const String filterDoctorsById = "specialization/show/";
 
   // user endPoint
   static const String getProfile = "user/profile";
@@ -24,7 +28,7 @@ class ApiErrors {
   static const String internalServerError = "internal Server Error";
   static const String unknownError = "unknown Error";
   static const String timeoutError = "timeout Error";
-  static const String defaultError = "default Error";
+  static const String defaultError = "No internet connection";
   static const String cacheError = "cache Error";
   static const String noInternetError = "NoInternet Error";
   static const String loadingMessage = "loading_message";

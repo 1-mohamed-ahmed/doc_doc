@@ -5,10 +5,10 @@ import 'package:doc_doc/core/widgets/app_button.dart';
 import 'package:doc_doc/features/auth/login/logic/cubit/login_cubit.dart';
 import 'package:doc_doc/features/auth/login/logic/cubit/login_state.dart';
 import 'package:doc_doc/features/auth/login/presentation/widget/form_email_and_password.dart';
+import 'package:doc_doc/features/auth/login/presentation/widget/show_dialog_indecator.dart';
 import 'package:doc_doc/features/auth/widget/auth_footer_text.dart';
 import 'package:doc_doc/features/auth/widget/auth_header.dart';
 import 'package:doc_doc/features/auth/login/presentation/widget/or_divider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -66,30 +66,19 @@ class _LoginScreenState extends State<LoginScreen> {
                 BlocConsumer<LoginCubit, LgoinState>(
                   listener: (context, state) {
                     if (state is LoginLoading) {
-                      showCupertinoDialog(
-                        context: context,
-                        barrierDismissible: true,
-                        builder: (context) {
-                          return Align(
-                            alignment: Alignment.center,
-                            child: SizedBox(
-                              width: 250.w,
-                              height: 200.h,
-                              child: CupertinoAlertDialog(
-                                content: Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 10),
-                                  child: CupertinoActivityIndicator(
-                                    radius: 16,
-                                    color: Colors.blue,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
+                      // ignore: void_checks
+                      return ShowDialogIndecator.showIndicator(context);
+                    } else if (state is LoginEmailVerify) {
+                      Navigator.of(context, rootNavigator: true).pop();
+
+                      showTopSnackBar(
+                        Overlay.of(context),
+                        CustomSnackBar.info(
+                          message: "Please verify your email",
+                        ),
                       );
-                    }
-                    if (state is LoginSuccess) {
+                      context.pushNamed(Routes.verifyEmail);
+                    } else if (state is LoginSuccess) {
                       // To close the loading dialog when login succeeds
                       Navigator.of(context, rootNavigator: true).pop();
                       showTopSnackBar(
@@ -99,8 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       );
                       context.pushNamedAndRemoveUntil(Routes.homeScreen);
-                    }
-                    if (state is LoginFailuer) {
+                    } else if (state is LoginFailuer) {
                       // To close the loading dialog when login fails
                       Navigator.of(context, rootNavigator: true).pop();
                       showTopSnackBar(
@@ -117,6 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       textButton: "Login",
                       onPressed: () async {
                         context.read<LoginCubit>().emitLoginStates();
+                        // context.read<LoginCubit>().verifyEmail();
                       },
                       isLoading: false,
                     );

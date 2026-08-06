@@ -1,35 +1,18 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'home_response_body.g.dart';
+part 'all_doctors_model.g.dart';
 
 @JsonSerializable()
-class HomeResponseBody {
+class AllDoctorsModel {
   @JsonKey(name: 'data')
-  final List<SpecialistsData>? specialists; // this is list of some specialists
-  HomeResponseBody({required this.specialists});
-  factory HomeResponseBody.fromJson(Map<String, dynamic> json) =>
-      _$HomeResponseBodyFromJson(json);
+  final List<AllDoctorsList>? docotors;
+  AllDoctorsModel({required this.docotors});
+  factory AllDoctorsModel.fromJson(Map<String, dynamic> json) =>
+      _$AllDoctorsModelFromJson(json);
 }
 
 @JsonSerializable()
-class SpecialistsData {
-  final int? id;
-  @JsonKey(name: 'name')
-  final String? specializationName;
-  final List<DoctorsList>? doctors;
-
-  SpecialistsData({
-    required this.id,
-    required this.specializationName,
-    required this.doctors,
-  });
-
-  factory SpecialistsData.fromJson(Map<String, dynamic> json) =>
-      _$SpecialistsDataFromJson(json);
-}
-
-@JsonSerializable()
-class DoctorsList {
+class AllDoctorsList {
   final int? id;
   final String? name;
   final String? email;
@@ -40,13 +23,14 @@ class DoctorsList {
   final String? address;
   final String? degree;
   final Map<String, dynamic>? specialization;
+  final Map<String, dynamic>? city;
   @JsonKey(name: 'appoint_price')
   final int? price;
   @JsonKey(name: 'start_time')
   final String? startTime;
   @JsonKey(name: 'end_time')
   final String? endTime;
-  DoctorsList({
+  AllDoctorsList({
     required this.id,
     required this.name,
     required this.email,
@@ -56,11 +40,12 @@ class DoctorsList {
     required this.address,
     required this.degree,
     required this.specialization,
+    required this.city,
     required this.price,
     required this.startTime,
     required this.endTime,
   });
 
-  factory DoctorsList.fromJson(Map<String, dynamic> json) =>
-      _$DoctorsListFromJson(json);
+  factory AllDoctorsList.fromJson(Map<String, dynamic> json) =>
+      _$AllDoctorsListFromJson(json);
 }

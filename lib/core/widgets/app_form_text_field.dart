@@ -11,6 +11,7 @@ class AppFormTextField extends StatelessWidget {
   final Icon? prefixIcon;
   final IconButton? suffixIcon;
   final String? errorText;
+  final void Function(String)? onChanged;
 
   final String? Function(String?)? validator;
   const AppFormTextField({
@@ -24,6 +25,7 @@ class AppFormTextField extends StatelessWidget {
     this.focusedBorder,
     this.focusedErrorBorder,
     this.errorText,
+    this.onChanged,
   });
 
   @override
@@ -33,6 +35,7 @@ class AppFormTextField extends StatelessWidget {
       validator: validator,
       cursorColor: Colors.black,
       obscureText: obscureText ?? false,
+      onChanged: onChanged,
       decoration: InputDecoration(
         // isDense: true,
         contentPadding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 17.h),

@@ -1,3 +1,4 @@
+import 'package:doc_doc/core/helpers/extention.dart';
 import 'package:doc_doc/core/theming/app_text_style.dart';
 import 'package:doc_doc/features/home/presentation/widget/app_bar_notification.dart';
 import 'package:doc_doc/features/home/presentation/widget/sections_header.dart';
@@ -17,7 +18,7 @@ class NotificationScreen extends StatelessWidget {
               children: [
                 // AppBar notification Screen
                 AppBarNotification(
-                  leftIconOnPressed: () {},
+                  leftIconOnPressed: () {context.pop();},
                   rightIconOnPressed: () {},
                 ),
 

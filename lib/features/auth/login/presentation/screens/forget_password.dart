@@ -67,7 +67,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               child: AppButton(
                 isLoading: false,
                 textButton: "Reset Passwors",
-                onPressed: () {},
+                onPressed: () async {},
               ),
             ),
           ],

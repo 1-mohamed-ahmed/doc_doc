@@ -5,6 +5,7 @@ import 'package:doc_doc/core/networking/api_result.dart';
 import 'package:doc_doc/features/auth/login/domain/login_repo.dart';
 import 'package:doc_doc/features/auth/login/data/model/login_request_body.dart';
 import 'package:doc_doc/features/auth/login/logic/cubit/login_state.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -44,14 +45,22 @@ class LoginCubit extends Cubit<LgoinState> {
           );
 
           firebaseResponse.when(
-            success: (userCredential) {
-              emit(
-                LoginSuccess(
-                  apiData: loginResponse,
-                  firebaseData: userCredential,
-                ),
-              );
+            success: (userCredential) async {
+              await userCredential.user?.reload();
+
+              if (userCredential.user?.emailVerified == false) {
+                emit(LoginEmailVerify());
+                return;
+              } else {
+                emit(
+                  LoginSuccess(
+                    apiData: loginResponse,
+                    firebaseData: userCredential,
+                  ),
+                );
+              }
             },
+
             failure: (errorModel) {
               // Firebase Error
               emit(LoginFailuer(firebaseError: errorModel.message.toString()));
@@ -64,6 +73,17 @@ class LoginCubit extends Cubit<LgoinState> {
           emit(LoginFailuer(apiError: errorModel.message));
         },
       );
+    }
+  }
+
+  Future<Null> verifyEmail() async {
+    final user = getIt<FirebaseAuth>().currentUser;
+    final emailVerified = getIt<FirebaseAuth>().currentUser!.emailVerified;
+
+    if (user != null && emailVerified) {
+      return null;
+    } else {
+      await getIt<FirebaseAuth>().currentUser!.sendEmailVerification();
     }
   }
 

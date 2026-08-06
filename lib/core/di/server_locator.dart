@@ -16,6 +16,7 @@ import 'package:doc_doc/features/home/data/apiService/home_api_service.dart';
 import 'package:doc_doc/features/home/data/repository/home_repo.dart';
 import 'package:doc_doc/features/home/data/repository/home_repo_impl.dart';
 import 'package:doc_doc/features/home/logic/home_cubit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,7 +30,7 @@ Future<void> setupServiceLocator() async {
     () => CacheHelper(sharedPreferences: getIt<SharedPreferences>()),
   );
   // Dio & ApiService & FirebaseLoginService & FirebaseSignupService
-  Dio dio = await DioFactory.getDio();
+  Dio dio = DioFactory.getDio();
 
   getIt.registerLazySingleton<ApiService>(() => ApiService(dio));
   getIt.registerLazySingleton<FirebaseLoginService>(
@@ -38,6 +39,10 @@ Future<void> setupServiceLocator() async {
   getIt.registerLazySingleton<FirebaseSignupService>(
     () => FirebaseSignupService(),
   );
+
+  // FirebaseAuth
+
+  getIt.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
 
   // feature / Login
   getIt.registerLazySingleton<LoginRepo>(
@@ -73,6 +78,7 @@ Future<void> setupServiceLocator() async {
 
   // feature / Home
   getIt.registerLazySingleton<HomeApiService>(() => HomeApiService(dio));
+
   getIt.registerLazySingleton<HomeRepo>(
     () => HomeRepoImpl(homeApiService: getIt<HomeApiService>()),
   );

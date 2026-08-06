@@ -1,38 +1,42 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'home_response_body.dart';
+part of 'all_doctors_specialization.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-HomeResponseBody _$HomeResponseBodyFromJson(Map<String, dynamic> json) =>
-    HomeResponseBody(
-      specialists: (json['data'] as List<dynamic>?)
-          ?.map((e) => SpecialistsData.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
+AllDoctorsSpecialization _$AllDoctorsSpecializationFromJson(
+  Map<String, dynamic> json,
+) => AllDoctorsSpecialization(
+  specializationsData: (json['data'] as List<dynamic>?)
+      ?.map((e) => SpecializationsOfData.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
 
-Map<String, dynamic> _$HomeResponseBodyToJson(HomeResponseBody instance) =>
-    <String, dynamic>{'data': instance.specialists};
+Map<String, dynamic> _$AllDoctorsSpecializationToJson(
+  AllDoctorsSpecialization instance,
+) => <String, dynamic>{'data': instance.specializationsData};
 
-SpecialistsData _$SpecialistsDataFromJson(Map<String, dynamic> json) =>
-    SpecialistsData(
-      id: (json['id'] as num?)?.toInt(),
-      specializationName: json['name'] as String?,
-      doctors: (json['doctors'] as List<dynamic>?)
-          ?.map((e) => DoctorsList.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
+SpecializationsOfData _$SpecializationsOfDataFromJson(
+  Map<String, dynamic> json,
+) => SpecializationsOfData(
+  id: (json['id'] as num?)?.toInt(),
+  specializationName: json['name'] as String?,
+  alldoctors: (json['alldoctors'] as List<dynamic>?)
+      ?.map((e) => AllDoctors.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
 
-Map<String, dynamic> _$SpecialistsDataToJson(SpecialistsData instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.specializationName,
-      'doctors': instance.doctors,
-    };
+Map<String, dynamic> _$SpecializationsOfDataToJson(
+  SpecializationsOfData instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.specializationName,
+  'alldoctors': instance.alldoctors,
+};
 
-DoctorsList _$DoctorsListFromJson(Map<String, dynamic> json) => DoctorsList(
+AllDoctors _$AllDoctorsFromJson(Map<String, dynamic> json) => AllDoctors(
   id: (json['id'] as num?)?.toInt(),
   name: json['name'] as String?,
   email: json['email'] as String?,
@@ -47,7 +51,7 @@ DoctorsList _$DoctorsListFromJson(Map<String, dynamic> json) => DoctorsList(
   endTime: json['end_time'] as String?,
 );
 
-Map<String, dynamic> _$DoctorsListToJson(DoctorsList instance) =>
+Map<String, dynamic> _$AllDoctorsToJson(AllDoctors instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

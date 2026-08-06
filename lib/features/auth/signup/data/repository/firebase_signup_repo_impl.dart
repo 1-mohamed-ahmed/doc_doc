@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:doc_doc/core/errors/firebase_error_handler.dart';
 import 'package:doc_doc/core/networking/api_result.dart';
 import 'package:doc_doc/core/networking/error_model.dart';
@@ -11,6 +10,7 @@ class FirebaseSignupRepoImpl implements FirebaseSignupRepo {
 
   FirebaseSignupRepoImpl({required this._firebaseSignupService});
 
+  @override
   Future<ApiResult<UserCredential>> firebaseSignUp(
     String email,
     String password,

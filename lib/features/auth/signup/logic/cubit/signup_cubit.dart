@@ -3,10 +3,13 @@ import 'package:doc_doc/core/api/api_keys.dart';
 import 'package:doc_doc/core/cache/cache_helper.dart';
 import 'package:doc_doc/core/di/server_locator.dart';
 import 'package:doc_doc/core/networking/api_result.dart';
+import 'package:doc_doc/features/auth/signup/data/models/signup_response_body.dart';
 import 'package:doc_doc/features/auth/signup/domain/signup_repo.dart';
 import 'package:doc_doc/features/auth/signup/data/models/signup_request_body.dart';
 import 'package:doc_doc/features/auth/signup/logic/cubit/signup_state.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class SignupCubit extends Cubit<SignupState> {
   final SignupRepo _signupRepo;
@@ -22,9 +25,13 @@ class SignupCubit extends Cubit<SignupState> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController passwordConfirmationController =
       TextEditingController();
-
   final formKey = GlobalKey<FormState>();
 
+
+  // this variable exist to get on token
+  SignupResponseBody? _getTokenResponse ;
+
+  // gender input
   int? _selectionGender;
 
   void selectedGender(int? gender) {
@@ -49,10 +56,9 @@ class SignupCubit extends Cubit<SignupState> {
 
       await apiResponse.when(
         success: (loginResponse) async {
-          // Save token
-          final token = loginResponse.data?.token;
-          await getIt<CacheHelper>().setData(key: ApiKeys.token, value: token);
 
+          _getTokenResponse = loginResponse;
+          
           // login with Firebase
           final firebaseResponse = await _firebaseSignupRepo.firebaseSignUp(
             emailController.text.trim(),
@@ -60,7 +66,8 @@ class SignupCubit extends Cubit<SignupState> {
           );
 
           firebaseResponse.when(
-            success: (userCredential) {
+            success: (userCredential) async {
+              await getIt<FirebaseAuth>().currentUser!.sendEmailVerification();
               emit(
                 SignupSuccess(
                   apiResponseData: loginResponse,
@@ -84,6 +91,33 @@ class SignupCubit extends Cubit<SignupState> {
           emit(SignupFailure(apiErrorMessage: errorModel.message));
         },
       );
+    }
+  }
+
+  // Future <void> verifyEmail() async {
+  //   await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+  // }
+
+  Future <bool> isEmailVefified() async {
+    await FirebaseAuth.instance.currentUser?.reload();
+
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null && user.emailVerified) {
+      await getIt<CacheHelper>().setData(
+        key: ApiKeys.isEmailVerified,
+        value: true,
+      );
+
+      final token = _getTokenResponse?.data?.token;
+      await getIt<CacheHelper>().setData(key: ApiKeys.token, value: token);
+
+
+        return true;
+
+
+    }else{
+      return false;
     }
   }
 

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppButton extends StatelessWidget {
+  final Color? color;
+  final Color? textColor;
   final void Function()? onPressed;
   final String textButton;
   final bool isLoading;
@@ -13,6 +15,8 @@ class AppButton extends StatelessWidget {
     required this.textButton,
     this.onPressed,
     required this.isLoading,
+    this.color,
+    this.textColor,
   });
 
   @override
@@ -20,7 +24,7 @@ class AppButton extends StatelessWidget {
     return CupertinoButton(
       onPressed: onPressed,
       minimumSize: Size(300.w, 50.h),
-      color: AppColor.buttonColor,
+      color: color ?? AppColor.buttonColor,
       foregroundColor: Colors.white,
       borderRadius: BorderRadius.circular(15.r),
       pressedOpacity: 0.8,
@@ -32,8 +36,10 @@ class AppButton extends StatelessWidget {
           : Text(
               textButton,
               style: TextStyles.font15grayW400.copyWith(
-                color: Colors.white,
+                color: textColor ?? Colors.white,
                 fontWeight: FontWeight.bold,
+                fontSize: 16.sp,
+                letterSpacing: 0.9,
               ),
             ),
     );

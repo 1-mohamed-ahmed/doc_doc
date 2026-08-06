@@ -1,60 +1,65 @@
 import 'package:doc_doc/core/theming/app_images.dart';
-import 'package:doc_doc/features/home/logic/home_cubit.dart';
-import 'package:doc_doc/features/home/logic/home_state.dart';
+import 'package:doc_doc/features/home/data/model/all_doctors_specialization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DoctorsSpecialistsSection extends StatelessWidget {
-  final void Function()? generalDoctorPressed; //General icon onPressed
-  final void Function()? neurologicDoctorPressed; //Neurologic icon onPressed
-  final void Function()? pediatricDoctorPressed; //Pediatric icon onPressed
-  final void Function()? radiologyDoctorPressed; //Radiology icon onPressed
+  final void Function(int)? onPressed;
+  final List<SpecializationsOfData>? specialization;
+
   const DoctorsSpecialistsSection({
     super.key,
-    this.generalDoctorPressed,
-    this.neurologicDoctorPressed,
-    this.pediatricDoctorPressed,
-    this.radiologyDoctorPressed,
+    required this.specialization,
+    this.onPressed,
   });
+
+  String isImageOrNo(String? specialization) {
+    switch (specialization) {
+      case "Urology":
+        return AppImages.brain;
+      case "Psychiatry":
+        return AppImages.general;
+      case "Pediatrics":
+        return AppImages.baby;
+      case "Cardiology":
+        return AppImages.cardiologist;
+      case "Neurology":
+        return AppImages.kidneys;
+      default:
+        return AppImages.ent;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
-      builder: (context, state) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            specialistIcon(
-              AppImages.general,
-              "General",
-              onPressed: generalDoctorPressed,
+    return SizedBox(
+      height: 100.h,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: specialization!.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: EdgeInsets.only(right: 15.w),
+            child: specialistIcon(
+              imagesPath: isImageOrNo(
+                specialization![index].specializationName,
+              ),
+              title: specialization![index].specializationName!,
+    
+              onPressed: () {
+                onPressed?.call(specialization![index].id!);
+              },
             ),
-            specialistIcon(
-              AppImages.brain,
-              "Neurologic",
-              onPressed: neurologicDoctorPressed,
-            ),
-            specialistIcon(
-              AppImages.baby,
-              "Pediatric",
-              onPressed: pediatricDoctorPressed,
-            ),
-            specialistIcon(
-              AppImages.kidneys,
-              "Radiology",
-              onPressed: radiologyDoctorPressed,
-            ),
-          ],
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
-  Widget specialistIcon(
-    String imagesPath,
-    String title, {
-    void Function()? onPressed,
+  Widget specialistIcon({
+    required String imagesPath,
+    required String title,
+    VoidCallback? onPressed,
   }) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

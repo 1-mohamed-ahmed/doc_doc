@@ -21,3 +21,5 @@ class SignupFailure extends SignupState {
   final String? firebaseErrorMessage;
   SignupFailure({this.apiErrorMessage, this.firebaseErrorMessage});
 }
+
+class SignupEmailVerify extends SignupState {}

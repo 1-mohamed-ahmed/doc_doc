@@ -3,63 +3,104 @@ import 'package:doc_doc/core/api/api_constants.dart';
 import 'package:doc_doc/core/networking/error_model.dart';
 
 enum DataSource {
+  // ignore: constant_identifier_names
   NO_CONTENT,
+  // ignore: constant_identifier_names
   BAD_REQUEST,
+  // ignore: constant_identifier_names
   FORBIDDEN,
+  // ignore: constant_identifier_names
   UNAUTORISED,
+  // ignore: constant_identifier_names
   NOT_FOUND,
+  // ignore: constant_identifier_names
   INTERNAL_SERVER_ERROR,
+  // ignore: constant_identifier_names
   CONNECT_TIMEOUT,
+  // ignore: constant_identifier_names
   CANCEL,
+  // ignore: constant_identifier_names
   RECIEVE_TIMEOUT,
+  // ignore: constant_identifier_names
   SEND_TIMEOUT,
+  // ignore: constant_identifier_names
   CACHE_ERROR,
+  // ignore: constant_identifier_names
   NO_INTERNET_CONNECTION,
   // API_LOGIC_ERROR,
+  // ignore: constant_identifier_names
   DEFAULT,
 }
 
 class ResponseCode {
+  // ignore: constant_identifier_names
   static const int SUCCESS = 200; // success with data
+  // ignore: constant_identifier_names
   static const int NO_CONTENT = 201; // success with no data (no content)
+  // ignore: constant_identifier_names
   static const int BAD_REQUEST = 400; // failure, API rejected request
+  // ignore: constant_identifier_names
   static const int UNAUTORISED = 401; // failure, user is not authorised
+  // ignore: constant_identifier_names
   static const int FORBIDDEN = 403; //  failure, API rejected request
+  // ignore: constant_identifier_names
   static const int INTERNAL_SERVER_ERROR = 500; // failure, crash in server side
+  // ignore: constant_identifier_names
   static const int NOT_FOUND = 404; // failure, not found
+  // ignore: constant_identifier_names
   static const int API_LOGIC_ERROR = 422; // API , lOGIC ERROR
 
   // local status code
+  // ignore: constant_identifier_names
   static const int CONNECT_TIMEOUT = -1;
+  // ignore: constant_identifier_names
   static const int CANCEL = -2;
+  // ignore: constant_identifier_names
   static const int RECIEVE_TIMEOUT = -3;
+  // ignore: constant_identifier_names
   static const int SEND_TIMEOUT = -4;
+  // ignore: constant_identifier_names
   static const int CACHE_ERROR = -5;
+  // ignore: constant_identifier_names
   static const int NO_INTERNET_CONNECTION = -6;
+  // ignore: constant_identifier_names
   static const int DEFAULT = -7;
 }
 
 class ResponseMessage {
+  // ignore: constant_identifier_names
   static const String NO_CONTENT =
       ApiErrors.noContent; // success with no data (no content)
+  // ignore: constant_identifier_names
   static const String BAD_REQUEST =
       ApiErrors.badRequestError; // failure, API rejected request
+  // ignore: constant_identifier_names
   static const String UNAUTORISED =
       ApiErrors.unauthorizedError; // failure, user is not authorised
+  // ignore: constant_identifier_names
   static const String FORBIDDEN =
       ApiErrors.forbiddenError; //  failure, API rejected request
+  // ignore: constant_identifier_names
   static const String INTERNAL_SERVER_ERROR =
       ApiErrors.internalServerError; // failure, crash in server side
+  // ignore: constant_identifier_names
   static const String NOT_FOUND =
       ApiErrors.notFoundError; // failure, crash in server side
 
   // local status code
+  // ignore: non_constant_identifier_names, constant_identifier_names
   static String CONNECT_TIMEOUT = ApiErrors.timeoutError;
+  // ignore: non_constant_identifier_names, constant_identifier_names
   static String CANCEL = ApiErrors.defaultError;
+  // ignore: non_constant_identifier_names, constant_identifier_names
   static String RECIEVE_TIMEOUT = ApiErrors.timeoutError;
+  // ignore: non_constant_identifier_names, constant_identifier_names
   static String SEND_TIMEOUT = ApiErrors.timeoutError;
+  // ignore: non_constant_identifier_names, constant_identifier_names
   static String CACHE_ERROR = ApiErrors.cacheError;
+  // ignore: non_constant_identifier_names, constant_identifier_names
   static String NO_INTERNET_CONNECTION = ApiErrors.noInternetError;
+  // ignore: non_constant_identifier_names, constant_identifier_names
   static String DEFAULT = ApiErrors.defaultError;
 }
 
@@ -187,11 +228,14 @@ ErrorModel _handleError(DioException error) {
 }
 
 class ApiInternalStatus {
+  // ignore: constant_identifier_names
   static const int SUCCESS = 0;
+  // ignore: constant_identifier_names
   static const int FAILURE = 1;
 }
 
-badResponse(statusCode) {
+// ignore: strict_top_level_inference
+ErrorModel badResponse( statusCode) { 
   switch (statusCode) {
     case 400:
       return ErrorModel(

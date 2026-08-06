@@ -50,11 +50,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     if (state is SignupSuccess) {
                       showTopSnackBar(
                         Overlay.of(context),
-                        CustomSnackBar.success(
-                          message: "Account created successfully!",
+                        CustomSnackBar.info(
+                          message: "please verify your email",
                         ),
                       );
-                      context.pushNamedAndRemoveUntil(Routes.homeScreen);
+                      context.pushNamed(Routes.verifyEmail);
                     }
                     if (state is SignupFailure) {
                       showTopSnackBar(
@@ -69,7 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   builder: (context, state) {
                     return AppButton(
                       textButton: "Create Account",
-                      onPressed: () {
+                      onPressed: () async {
                         context.read<SignupCubit>().emitSignupStates();
                       },
                       isLoading: state is SignupLoading,
